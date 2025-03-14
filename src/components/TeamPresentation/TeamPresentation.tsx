@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import translations from "../../../public/translation";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.BASE_URL;
 
 interface ProfilePicture {
   id: number;

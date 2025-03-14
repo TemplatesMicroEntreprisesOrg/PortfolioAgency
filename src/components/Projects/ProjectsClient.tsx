@@ -5,11 +5,10 @@ import useSWR from "swr";
 import "./Projects.css";
 import Button from "@mui/material/Button";
 import ProjectCard from "../ProjectCard/ProjectCard";
-import { MutatingDots } from "react-loader-spinner";
 import { useLanguage } from "@/context/LanguageContext";
 import translations from "../../../public/translation";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.BASE_URL;
 
 interface Stack {
   id: number;
@@ -79,7 +78,7 @@ function ProjectsClient() {
         {isLoading
           ? Array.from({ length: visibleCount }).map((_, index) => (
               <div key={index} className="projectCardLoader">
-                <MutatingDots
+                {/* <MutatingDots
                   visible={true}
                   height="100"
                   width="100"
@@ -87,7 +86,7 @@ function ProjectsClient() {
                   secondaryColor="#fc6e36"
                   radius="12.5"
                   ariaLabel="mutating-dots-loading"
-                />
+                /> */}
               </div>
             ))
           : projects.slice(0, visibleCount).map((project) => (

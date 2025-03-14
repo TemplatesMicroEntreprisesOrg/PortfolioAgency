@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { setCookie, getCookie } from "cookies-next";
 
 type LanguageKeys = "en" | "fr" | "de" | "es" | "it";
 
@@ -13,14 +14,18 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(
   undefined
 );
 
-interface LanguageProviderProps {
-  children: React.ReactNode;
-}
-
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<LanguageKeys>("fr");
+  // ✅ Récupérer la langue depuis les cookies au chargement initial
+  const [selectedLanguage, setSelectedLanguage] = useState<LanguageKeys>(
+    (getCookie("selectedLanguage") as LanguageKeys) || "fr"
+  );
+
+  // ✅ Mettre à jour les cookies lorsque la langue change
+  useEffect(() => {
+    setCookie("selectedLanguage", selectedLanguage, { path: "/" });
+  }, [selectedLanguage]);
 
   return (
     <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage }}>
